@@ -1,5 +1,5 @@
 ---
-- name: setup webserver
+- name: tear down webserver
   hosts: all
   become: true
   tasks:
