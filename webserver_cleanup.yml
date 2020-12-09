@@ -1,1 +1,26 @@
 ---
+- name: setup webserver
+  hosts: all
+  become: true
+  tasks:
+
+    - name: stop webserver
+      service:
+        name: httpd
+        state: stopped
+
+    - name: remove apache
+      yum:
+        name: httpd
+        state: absent
+      
+    - name: close firewall ports
+      firewalld:
+        port: 80/tcp
+        state: disabled
+        immediate: yes
+      
+    - name: remove index.html
+      file:
+        path: /var/www/html/index.html
+        state: absent
